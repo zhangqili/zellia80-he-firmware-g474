@@ -41,6 +41,7 @@
 #include "usbd_user.h"
 #include "command.h"
 #include "packet.h"
+#include "sfud.h"
 
 /* USER CODE END Includes */
 
@@ -51,8 +52,10 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define DMA_BUF_LEN             4
+#define rgb_start() HAL_TIM_PWM_Start_DMA(&htim3, TIM_CHANNEL_2, (uint32_t *)g_rgb_buffer, RGB_BUFFER_LENGTH);
+#define rgb_stop() HAL_TIM_PWM_Stop_DMA(&htim3, TIM_CHANNEL_2);
 
+#define DMA_BUF_LEN             4
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -63,6 +66,11 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+sfud_flash sfud_norflash0 = {
+  .name = "norflash0",
+  .spi.name = "SPI1",
+  .chip = {"W25Q128JV", SFUD_MF_ID_WINBOND, 0x40, 0x18, 16L * 1024L * 1024L, SFUD_WM_PAGE_256B, 4096, 0x20},
+};
 
 uint32_t ADC_Buffer[4*DMA_BUF_LEN];
 /* USER CODE END PV */
@@ -258,6 +266,7 @@ int main(void)
   HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
   HAL_ADCEx_Calibration_Start(&hadc3, ADC_SINGLE_ENDED);
   HAL_ADCEx_Calibration_Start(&hadc4, ADC_SINGLE_ENDED);
+  rgb_start();
 
   HAL_ADC_Start_DMA(&hadc1, ADC_Buffer + DMA_BUF_LEN*0, DMA_BUF_LEN);
   HAL_ADC_Start_DMA(&hadc2, ADC_Buffer + DMA_BUF_LEN*1, DMA_BUF_LEN);

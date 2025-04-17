@@ -13,12 +13,13 @@
 #define ADVANCED_KEY_NUM        88
 #define ANALOG_BUFFER_LENGTH    128
 #define KEY_NUM                 0
-//#define ENABLE_FIXED_POINT_EXPERIMENTAL
+//#define FIXED_POINT_EXPERIMENTAL
 //#define CONTINOUS_POLL
 #define OPTIMIZE_FOR_FLOAT_DIVISION
 //#define CONTINOUS_DEBUG
 #define DEBUG_INTERVAL 1
 #define DYNAMICKEY_ENABLE
+//#define STORAGE_ENABLE
 
 /********************/
 /* Keyboard Default */
@@ -41,10 +42,10 @@
 /*******/
 /* RGB */
 /*******/
-#define ENABLE_RGB              
+#define RGB_ENABLE    
 #define RGB_NUM                 (ADVANCED_KEY_NUM)
-#define ONE_PULSE               (60)
-#define ZERO_PULSE              (29)
+#define ONE_PULSE               (142)
+#define ZERO_PULSE              (68)
 #define NONE_PULSE              (0)
 #define RGB_RESET_LENGTH        (400)
 #define RGB_BUFFER_LENGTH       (RGB_RESET_LENGTH+3*8*(RGB_NUM))
@@ -78,17 +79,17 @@
 /* Filter */
 /**********/
 //#define TOLERANCE               3
-#define ENABLE_FILTER
+#define FILTER_ENABLE
 
 /**********/
 /* Record */
 /**********/
 //#define STATIC_RECORD
-//#define ENABLE_ANALOG_HISTORY
-//#define ENABLE_KPS
-//#define ENABLE_KPS_HISTORY
-//#define ENABLE_BIT_STREAM
-//#define ENABLE_COUNTER
+//#define ANALOG_HISTORY_ENABLE
+//#define KPS_ENABLE
+//#define KPS_HISTORY_ENABLE
+//#define BIT_STREAM_ENABLE
+//#define COUNTER_ENABLE
 
 #define KPS_HISTORY_LENGTH      65
 #define BIT_STREAM_LENGTH       128

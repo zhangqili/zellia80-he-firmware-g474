@@ -1,9 +1,13 @@
 #include "lfs.h"
 #include "keyboard_def.h"
+#include "sfud.h"
 #include "stdio.h"
+
+extern sfud_flash sfud_norflash0;
 
 static int lfs_deskio_read(const struct lfs_config *c, lfs_block_t block, lfs_off_t off, void *buffer, lfs_size_t size)
 {
+    sfud_read(&sfud_norflash0, c->block_size * block + off, size, (uint8_t *)buffer);
     return LFS_ERR_OK;
 }
 
@@ -18,6 +22,7 @@ static int lfs_deskio_read(const struct lfs_config *c, lfs_block_t block, lfs_of
  */
 static int lfs_deskio_prog(const struct lfs_config *c, lfs_block_t block, lfs_off_t off, const void *buffer, lfs_size_t size)
 {
+    sfud_write(&sfud_norflash0, c->block_size * block + off, size, (uint8_t *)buffer);
     return LFS_ERR_OK;
 }
 
@@ -29,6 +34,7 @@ static int lfs_deskio_prog(const struct lfs_config *c, lfs_block_t block, lfs_of
  */
 static int lfs_deskio_erase(const struct lfs_config *c, lfs_block_t block)
 {
+    sfud_erase(&sfud_norflash0, (block * c->block_size), c->block_size);
     return LFS_ERR_OK;
 }
 

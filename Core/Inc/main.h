@@ -53,6 +53,7 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
+void DWT_Delay_us(volatile uint32_t au32_microseconds);
 
 /* USER CODE END EFP */
 
