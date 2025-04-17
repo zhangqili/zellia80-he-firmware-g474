@@ -22,6 +22,8 @@
 #include "stm32g4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "analog.h"
+#include "rgb.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,7 +57,8 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim7;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -187,6 +190,7 @@ void SysTick_Handler(void)
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */
+  g_keyboard_tick++;
 
   /* USER CODE END SysTick_IRQn 1 */
 }
@@ -197,6 +201,49 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32g4xx.s).                    */
 /******************************************************************************/
+
+/**
+  * @brief This function handles USB low priority interrupt remap.
+  */
+void USB_LP_IRQHandler(void)
+{
+  /* USER CODE BEGIN USB_LP_IRQn 0 */
+
+  /* USER CODE END USB_LP_IRQn 0 */
+  /* USER CODE BEGIN USB_LP_IRQn 1 */
+  extern void USBD_IRQHandler(uint8_t busid);
+  USBD_IRQHandler(0);
+
+  /* USER CODE END USB_LP_IRQn 1 */
+}
+
+/**
+  * @brief This function handles TIM2 global interrupt.
+  */
+void TIM2_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM2_IRQn 0 */
+
+  /* USER CODE END TIM2_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim2);
+  /* USER CODE BEGIN TIM2_IRQn 1 */
+
+  /* USER CODE END TIM2_IRQn 1 */
+}
+
+/**
+  * @brief This function handles TIM7 global interrupt, DAC2 and DAC4 channel underrun error interrupts.
+  */
+void TIM7_DAC_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM7_DAC_IRQn 0 */
+
+  /* USER CODE END TIM7_DAC_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim7);
+  /* USER CODE BEGIN TIM7_DAC_IRQn 1 */
+
+  /* USER CODE END TIM7_DAC_IRQn 1 */
+}
 
 /* USER CODE BEGIN 1 */
 

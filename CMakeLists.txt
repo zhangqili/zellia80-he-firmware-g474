@@ -11,7 +11,7 @@ cmake_minimum_required(VERSION 3.22)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
-
+set(CMAKE_COLOR_DIAGNOSTICS ON)
 
 # Define the build type
 if(NOT CMAKE_BUILD_TYPE)
@@ -39,20 +39,45 @@ add_executable(${CMAKE_PROJECT_NAME})
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
+add_subdirectory(libamp)
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined library search paths
 )
 
+file(GLOB_RECURSE MY_SOURCES
+    "./libamp_user/*.c"
+    "./sfud/src/*.c"
+    "./sfud/port/*.c"
+    "./CherryUSB/core/usbd_core.c"
+    "./CherryUSB/class/hid/usbd_hid.c"
+    "./CherryUSB/port/fsdev/usb_dc_fsdev.c"
+    "./usb/*.c")
+
+
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
+    ${MY_SOURCES}
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
+    ./sfud/inc
+    ./usb
+    ./CherryUSB/core
+    ./CherryUSB/common
+    ./CherryUSB/class/hid
+    ./CherryUSB/class/midi
+    ./CherryUSB/port/fsdev
+    ./Drivers/CMSIS/Device/ST/STM32F3xx/Include
+)
+
+target_include_directories(libamp PUBLIC
+    # Add user defined include paths
+    ./libamp_user
 )
 
 # Add project symbols (macros)
@@ -63,6 +88,6 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
-
     # Add user defined libraries
+    libamp
 )
