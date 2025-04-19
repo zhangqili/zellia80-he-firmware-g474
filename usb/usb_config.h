@@ -133,7 +133,7 @@
 #define CONFIG_USBDEV_MAX_BUS 1
 
 #define CONFIG_USBDEV_EP_NUM 8
-#define CONFIG_USBDEV_FSDEV_PMA_ACCESS 2
+#define CONFIG_USBDEV_FSDEV_PMA_ACCESS 1
 
 /* ================ USB Host Port Configuration ==================*/
 

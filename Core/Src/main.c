@@ -197,24 +197,27 @@ void JumpToBootloader(void)
 
 void usb_dc_low_level_init(void)
 {
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
+  /* USER CODE BEGIN USB_MspInit 0 */
 
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  /**USB GPIO Configuration
-  PA11     ------> USB_DM
-  PA12     ------> USB_DP
+  /* USER CODE END USB_MspInit 0 */
+
+  /** Initializes the peripherals clocks
   */
-  GPIO_InitStruct.Pin = GPIO_PIN_11 | GPIO_PIN_12;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  //GPIO_InitStruct.Alternate = GPIO_AF14_USB;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-  /* Peripheral clock enable */
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB;
+  PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USB clock enable */
   __HAL_RCC_USB_CLK_ENABLE();
   /* USB interrupt Init */
   HAL_NVIC_SetPriority(USB_LP_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(USB_LP_IRQn);
+  /* USER CODE BEGIN USB_MspInit 1 */
+
+  /* USER CODE END USB_MspInit 1 */
 }
 /* USER CODE END 0 */
 
@@ -257,6 +260,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM2_Init();
   MX_TIM7_Init();
+  //MX_USB_PCD_Init();
   /* USER CODE BEGIN 2 */
   DWT_Init();
   usb_init();
