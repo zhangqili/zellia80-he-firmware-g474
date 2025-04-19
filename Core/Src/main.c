@@ -421,6 +421,23 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   }
 }
 
+
+void rgb_update_callback()
+{
+	if(g_keyboard_led_state&BIT(1))
+  {
+	  g_rgb_colors[g_rgb_mapping[51]].r = 0xff;
+	  g_rgb_colors[g_rgb_mapping[51]].g = 0xff;
+	  g_rgb_colors[g_rgb_mapping[51]].b = 0xff;//cap lock
+	}
+	if(g_keyboard_led_state&BIT(2))
+  {
+	  g_rgb_colors[g_rgb_mapping[15]].r = 0xff;
+	  g_rgb_colors[g_rgb_mapping[15]].g = 0xff;
+	  g_rgb_colors[g_rgb_mapping[15]].b = 0xff;//cap lock
+	}
+}
+
 /* USER CODE END 4 */
 
 /**
