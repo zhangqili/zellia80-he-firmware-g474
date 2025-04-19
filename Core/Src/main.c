@@ -55,7 +55,7 @@
 #define rgb_start() HAL_TIM_PWM_Start_DMA(&htim3, TIM_CHANNEL_2, (uint32_t *)g_rgb_buffer, RGB_BUFFER_LENGTH);
 #define rgb_stop() HAL_TIM_PWM_Stop_DMA(&htim3, TIM_CHANNEL_2);
 
-#define DMA_BUF_LEN             4
+#define DMA_BUF_LEN             2
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -260,7 +260,6 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM2_Init();
   MX_TIM7_Init();
-  //MX_USB_PCD_Init();
   /* USER CODE BEGIN 2 */
   DWT_Init();
   usb_init();
