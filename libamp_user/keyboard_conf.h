@@ -10,7 +10,7 @@
 /* Keyboard General */
 /********************/
 #define LAYER_NUM               5
-#define ADVANCED_KEY_NUM        88
+#define ADVANCED_KEY_NUM        87
 #define ANALOG_BUFFER_LENGTH    128
 #define KEY_NUM                 0
 //#define FIXED_POINT_EXPERIMENTAL
@@ -44,15 +44,15 @@
 /*******/
 #define RGB_ENABLE    
 #define RGB_NUM                 (ADVANCED_KEY_NUM)
-#define ONE_PULSE               (109)
-#define ZERO_PULSE              (54)
+#define ONE_PULSE               (142)
+#define ZERO_PULSE              (68)
 #define NONE_PULSE              (0)
 #define RGB_RESET_LENGTH        (400)
 #define RGB_BUFFER_LENGTH       (RGB_RESET_LENGTH+3*8*(RGB_NUM))
 #define RGB_MAX_DURATION        2000
 #define FADING_DISTANCE         5.0f
 #define JELLY_DISTANCE          10.0f
-#define PORT_LOCATION           {1, 4.5}
+#define PORT_LOCATION           {15, 0}
 #define RGB_FLASH_MAX_DURATION  1000
 #define RGB_FLASH_RIPPLE_SPEED  0.03
 #define RGB_DEFAULT_MODE        RGB_MODE_LINEAR

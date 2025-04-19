@@ -14,15 +14,35 @@
 
 const Keycode g_default_keymap[LAYER_NUM][ADVANCED_KEY_NUM + KEY_NUM] = {
     {
-        KEY_ESC/*0*/,           KEY_F1/*1*/,    KEY_F2/*2*/,    KEY_F3/*3*/,    KEY_F4/*4*/,    KEY_F5/*5*/,    KEY_F6/*6*/,    KEY_F7/*7*/,    KEY_F8/*8*/,    KEY_F9/*9*/,    KEY_F10/*10*/,      KEY_F11/*11*/,          KEY_F12/*12*/,          KEY_NO_EVENT/*13*/, KEY_PRINT_SCREEN/*14*/,KEY_SCROLL_LOCK/*15*/, KEY_PAUSE/*16*/,
+        KEY_ESC/*0*/,           KEY_F1/*1*/,    KEY_F2/*2*/,    KEY_F3/*3*/,    KEY_F4/*4*/,    KEY_F5/*5*/,    KEY_F6/*6*/,    KEY_F7/*7*/,    KEY_F8/*8*/,    KEY_F9/*9*/,    KEY_F10/*10*/,      KEY_F11/*11*/,          KEY_F12/*12*/,          KEY_NO_EVENT/*13*/,         KEY_PRINT_SCREEN/*14*/,KEY_SCROLL_LOCK/*15*/, KEY_PAUSE/*16*/,
         KEY_GRAVE/*17*/,        KEY_1/*18*/,    KEY_2/*19*/,    KEY_3/*20*/,    KEY_4/*21*/,    KEY_5/*22*/,    KEY_6/*23*/,    KEY_7/*24*/,    KEY_8/*25*/,    KEY_9/*26*/,    KEY_0/*27*/,        KEY_MINUS/*28*/,        KEY_EQUAL/*29*/,        KEY_BACKSPACE/*30*/,             KEY_INSERT/*31*/,      KEY_HOME/*32*/,        KEY_PAGE_UP/*33*/,
         KEY_TAB/*34*/,          KEY_Q/*35*/,    KEY_W/*36*/,    KEY_E/*37*/,    KEY_R/*38*/,    KEY_T/*39*/,    KEY_Y/*40*/,    KEY_U/*41*/,    KEY_I/*42*/,    KEY_O/*43*/,    KEY_P/*44*/,        KEY_LEFT_BRACE/*45*/,   KEY_RIGHT_BRACE/*46*/,  KEY_BACKSLASH/*47*/,             KEY_DELETE/*48*/,      KEY_END/*49*/,         KEY_PAGE_DOWN/*50*/,
         KEY_CAPS_LOCK/*51*/,    KEY_A/*52*/,    KEY_S/*53*/,    KEY_D/*54*/,    KEY_F/*55*/,    KEY_G/*56*/,    KEY_H/*57*/,    KEY_J/*58*/,    KEY_K/*59*/,    KEY_L/*60*/,    KEY_SEMICOLON/*61*/,KEY_APOSTROPHE/*62*/,   KEY_ENTER/*63*/,
         KEY_LEFT_SHIFT<<8/*64*/,KEY_Z/*65*/,    KEY_X/*66*/,    KEY_C/*67*/,    KEY_V/*68*/,    KEY_B/*69*/,    KEY_N/*70*/,    KEY_M/*71*/,    KEY_COMMA/*72*/,KEY_DOT/*73*/,  KEY_SLASH/*74*/,    KEY_RIGHT_SHIFT<<8/*75*/,                                                                               KEY_UP_ARROW/*76*/,
-        KEY_LEFT_CTRL<<8/*77*/, KEY_LEFT_GUI<<8/*78*/, KEY_LEFT_ALT<<8/*79*/, KEY_SPACEBAR/*80*/, KEY_RIGHT_ALT<<8/*81*/, KEY_RIGHT_GUI<<8/*82*/, KEY_MENU/*83*/, KEY_RIGHT_CTRL<<8/*84*/,                                                                                           KEY_LEFT_ARROW/*85*/,  KEY_DOWN_ARROW/*86*/,  KEY_RIGHT_ARROW/*87*/,
+        KEY_LEFT_CTRL<<8/*77*/, KEY_LEFT_GUI<<8/*78*/, KEY_LEFT_ALT<<8/*79*/, KEY_SPACEBAR/*80*/, KEY_RIGHT_ALT<<8/*81*/, KEY_RIGHT_GUI<<8/*82*/, KEY_RIGHT_CTRL<<8/*83*/,                                                                                           KEY_LEFT_ARROW/*84*/,  KEY_DOWN_ARROW/*85*/,  KEY_RIGHT_ARROW/*86*/,
     }
 };
 
+const uint8_t g_rgb_mapping[ADVANCED_KEY_NUM] = 
+{
+    16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0,
+    17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,
+    50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,
+    51,52,53,54,55,56,57,58,59,60,61,62,63,
+    75,74,73,72,71,70,69,68,67,66,65,64,86,
+    76,77,78,79,80,81,82,83,84,85,
+};
+
+const RGBLocation g_rgb_locations[RGB_NUM]=
+{
+    {17.75,0},{16.75,0},{15.75,0},{14.5,0},{13.25,0},{12.25,0},{11.25,0},{10.25,0},{9,0},{8,0},{7,0},{6,0},{4.75,0},{3.75,0},{2.75,0},{1.75,0},{0.5,0},
+    {0.5,1.5},{1.5,1.5},{2.5,1.5},{3.5,1.5},{4.5,1.5},{5.5,1.5},{6.5,1.5},{7.5,1.5},{8.5,1.5},{9.5,1.5},{10.5,1.5},{11.5,1.5},{12.5,1.5},{14,1.5},{15.75,1.5},{16.75,1.5},{17.75,1.5},
+    {17.75,2.5},{16.75,2.5},{15.75,2.5},{14.25,2.5},{13,2.5},{12,2.5},{11,2.5},{10,2.5},{9,2.5},{8,2.5},{7,2.5},{6,2.5},{5,2.5},{4,2.5},{3,2.5},{2,2.5},{0.75,2.5},
+    {0.875,3.5},{2.25,3.5},{3.25,3.5},{4.25,3.5},{5.25,3.5},{6.25,3.5},{7.25,3.5},{8.25,3.5},{9.25,3.5},{10.25,3.5},{11.25,3.5},{12.25,3.5},{13.875,3.5},
+    {13.625,4.5},{11.75,4.5},{10.75,4.5},{9.75,4.5},{8.75,4.5},{7.75,4.5},{6.75,4.5},{5.75,4.5},{4.75,4.5},{3.75,4.5},{2.75,4.5},{1.125,4.5},
+    {0.75,5.5},{2.0,5.5},{2.75,5.5},{7.5,5.5},{11.75,5.5},{13,5.5},{13.75,5.5},{15.75,5.5},{16.75,5.5},{17.75,5.5},{16.75,4.5}, 
+};
+    
 AdvancedKey g_keyboard_advanced_keys[ADVANCED_KEY_NUM] =
 {
     {.key.id = 0},
@@ -112,23 +132,22 @@ AdvancedKey g_keyboard_advanced_keys[ADVANCED_KEY_NUM] =
     {.key.id = 84},
     {.key.id = 85},
     {.key.id = 86},
-    {.key.id = 87},
 };
 
 const uint16_t g_analog_map[ANALOG_BUFFER_LENGTH] = {
     ANALOG_NO_MAP,  0,              2,              4,              6,              10,             8,              12,             
     ANALOG_NO_MAP,  17,             19,             21,             23,             27,             25,             29,             
-    15,             34,             36,             38,             40,             44,             42,             46,             
+    49,             34,             36,             38,             40,             44,             42,             46,             
     32,             ANALOG_NO_MAP,  ANALOG_NO_MAP, ANALOG_NO_MAP,   ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  
-    49,             ANALOG_NO_MAP,  ANALOG_NO_MAP, ANALOG_NO_MAP,   ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  
+    15,             ANALOG_NO_MAP,  ANALOG_NO_MAP, ANALOG_NO_MAP,   ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  
     14,             51,             53,             55,             57,             61,             59,             ANALOG_NO_MAP,  
     31,             64,             79,             68,             80,             74,             72,             75,             
-    48,             77,             66,             ANALOG_NO_MAP,  70,             81,             ANALOG_NO_MAP,  84,             
+    48,             77,             66,             ANALOG_NO_MAP,  70,             81,             ANALOG_NO_MAP,  83,             
     ANALOG_NO_MAP,  52,             54,             56,             58,             62,             60,             63,             
     76,             78,             67,             69,             71,             82,             73,             ANALOG_NO_MAP,  
-    85,             65,             ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  
+    84,             65,             ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  
+    85,             ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  
     86,             ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  
-    87,             ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  ANALOG_NO_MAP,  
     50,             1,              3,              5,              7,              11,             9,              13,             
     16,             18,             20,             22,             24,             28,             26,             30,             
     33,             35,             37,             39,             41,             45,             43,             47,             
