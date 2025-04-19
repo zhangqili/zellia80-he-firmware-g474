@@ -44,8 +44,8 @@
 /*******/
 #define RGB_ENABLE    
 #define RGB_NUM                 (ADVANCED_KEY_NUM)
-#define ONE_PULSE               (142)
-#define ZERO_PULSE              (68)
+#define ONE_PULSE               (109)
+#define ZERO_PULSE              (54)
 #define NONE_PULSE              (0)
 #define RGB_RESET_LENGTH        (400)
 #define RGB_BUFFER_LENGTH       (RGB_RESET_LENGTH+3*8*(RGB_NUM))

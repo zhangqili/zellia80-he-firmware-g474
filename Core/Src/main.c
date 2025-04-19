@@ -270,6 +270,7 @@ int main(void)
   HAL_ADCEx_Calibration_Start(&hadc3, ADC_SINGLE_ENDED);
   HAL_ADCEx_Calibration_Start(&hadc4, ADC_SINGLE_ENDED);
   rgb_start();
+  rgb_flash();
 
   HAL_ADC_Start_DMA(&hadc1, ADC_Buffer + DMA_BUF_LEN*0, DMA_BUF_LEN);
   HAL_ADC_Start_DMA(&hadc2, ADC_Buffer + DMA_BUF_LEN*1, DMA_BUF_LEN);
@@ -292,6 +293,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    for (uint8_t i = 0; i < RGB_NUM; i++)
+    {
+      rgb_set(i,100, 100, 100);
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
