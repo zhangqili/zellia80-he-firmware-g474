@@ -55,7 +55,7 @@
 #define rgb_start() HAL_TIM_PWM_Start_DMA(&htim3, TIM_CHANNEL_2, (uint32_t *)g_rgb_buffer, RGB_BUFFER_LENGTH);
 #define rgb_stop() HAL_TIM_PWM_Stop_DMA(&htim3, TIM_CHANNEL_2);
 
-#define DMA_BUF_LEN             2
+#define DMA_BUF_LEN             8
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -412,7 +412,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     ringbuf_push(&adc_ringbuf[6 + ADDRESS * 8], (float)adc[6] / (float)(DMA_BUF_LEN/2));
     ringbuf_push(&adc_ringbuf[7 + ADDRESS * 8], (float)adc[7] / (float)(DMA_BUF_LEN/2));
 
-    if (htim->Instance->CNT < 1650)
+    if (htim->Instance->CNT < 1000)
     {
       g_analog_active_channel++;
       if (g_analog_active_channel >= ANALOG_CHANNEL_MAX)
