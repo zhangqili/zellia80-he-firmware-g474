@@ -262,6 +262,7 @@ int main(void)
   MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
   DWT_Init();
+  sfud_device_init(&sfud_norflash0);
   usb_init();
   keyboard_init();
 
@@ -283,9 +284,7 @@ int main(void)
 
   keyboard_reset_to_default();
   analog_reset_range();
-  g_keyboard_nkro_enable = true;
-  g_keyboard_advanced_keys[18].config.calibration_mode = KEY_AUTO_CALIBRATION_UNDEFINED;
-  g_keyboard_advanced_keys[18].raw = 2048;
+  
   HAL_TIM_Base_Start_IT(&htim7);
   /* USER CODE END 2 */
 
