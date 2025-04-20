@@ -55,7 +55,7 @@
 #define rgb_start() HAL_TIM_PWM_Start_DMA(&htim3, TIM_CHANNEL_2, (uint32_t *)g_rgb_buffer, RGB_BUFFER_LENGTH);
 #define rgb_stop() HAL_TIM_PWM_Stop_DMA(&htim3, TIM_CHANNEL_2);
 
-#define DMA_BUF_LEN             8
+#define DMA_BUF_LEN             20
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -282,7 +282,6 @@ int main(void)
 
   HAL_Delay(100);
 
-  keyboard_reset_to_default();
   analog_reset_range();
   
   HAL_TIM_Base_Start_IT(&htim7);
@@ -386,28 +385,28 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   }
   if (htim->Instance == TIM2)
   {
-    uint32_t adc[8] = {0};
+    static uint32_t adc[8] = {0};
     memset(adc, 0 ,sizeof(adc));
     for (int i = 0; i < DMA_BUF_LEN/2; i++)
     {
-      adc[0] += ADC_Buffer[DMA_BUF_LEN * 0 + i * 2] & 0xfff;
-      adc[1] += ADC_Buffer[DMA_BUF_LEN * 0 + i * 2 + 1] & 0xfff;
-      adc[2] += ADC_Buffer[DMA_BUF_LEN * 1 + i * 2] & 0xfff;
-      adc[3] += ADC_Buffer[DMA_BUF_LEN * 1 + i * 2 + 1] & 0xfff;
-      adc[4] += ADC_Buffer[DMA_BUF_LEN * 2 + i * 2] & 0xfff;
-      adc[5] += ADC_Buffer[DMA_BUF_LEN * 2 + i * 2 + 1] & 0xfff;
-      adc[6] += ADC_Buffer[DMA_BUF_LEN * 3 + i * 2] & 0xfff;
-      adc[7] += ADC_Buffer[DMA_BUF_LEN * 3 + i * 2 + 1] & 0xfff;
+      adc[0] += ADC_Buffer[DMA_BUF_LEN * 0 + i * 2];
+      adc[1] += ADC_Buffer[DMA_BUF_LEN * 0 + i * 2 + 1];
+      adc[2] += ADC_Buffer[DMA_BUF_LEN * 1 + i * 2];
+      adc[3] += ADC_Buffer[DMA_BUF_LEN * 1 + i * 2 + 1];
+      adc[4] += ADC_Buffer[DMA_BUF_LEN * 2 + i * 2];
+      adc[5] += ADC_Buffer[DMA_BUF_LEN * 2 + i * 2 + 1];
+      adc[6] += ADC_Buffer[DMA_BUF_LEN * 3 + i * 2];
+      adc[7] += ADC_Buffer[DMA_BUF_LEN * 3 + i * 2 + 1];
     }
 
-    ringbuf_push(&adc_ringbuf[0 + ADDRESS * 8], (float)adc[0] / (float)(DMA_BUF_LEN/2));
-    ringbuf_push(&adc_ringbuf[1 + ADDRESS * 8], (float)adc[1] / (float)(DMA_BUF_LEN/2));
-    ringbuf_push(&adc_ringbuf[2 + ADDRESS * 8], (float)adc[2] / (float)(DMA_BUF_LEN/2));
-    ringbuf_push(&adc_ringbuf[3 + ADDRESS * 8], (float)adc[3] / (float)(DMA_BUF_LEN/2));
-    ringbuf_push(&adc_ringbuf[4 + ADDRESS * 8], (float)adc[4] / (float)(DMA_BUF_LEN/2));
-    ringbuf_push(&adc_ringbuf[5 + ADDRESS * 8], (float)adc[5] / (float)(DMA_BUF_LEN/2));
-    ringbuf_push(&adc_ringbuf[6 + ADDRESS * 8], (float)adc[6] / (float)(DMA_BUF_LEN/2));
-    ringbuf_push(&adc_ringbuf[7 + ADDRESS * 8], (float)adc[7] / (float)(DMA_BUF_LEN/2));
+    ringbuf_push(&adc_ringbuf[0 + ADDRESS * 8], (float)adc[0] * (1/((float)DMA_BUF_LEN/2)));
+    ringbuf_push(&adc_ringbuf[1 + ADDRESS * 8], (float)adc[1] * (1/((float)DMA_BUF_LEN/2)));
+    ringbuf_push(&adc_ringbuf[2 + ADDRESS * 8], (float)adc[2] * (1/((float)DMA_BUF_LEN/2)));
+    ringbuf_push(&adc_ringbuf[3 + ADDRESS * 8], (float)adc[3] * (1/((float)DMA_BUF_LEN/2)));
+    ringbuf_push(&adc_ringbuf[4 + ADDRESS * 8], (float)adc[4] * (1/((float)DMA_BUF_LEN/2)));
+    ringbuf_push(&adc_ringbuf[5 + ADDRESS * 8], (float)adc[5] * (1/((float)DMA_BUF_LEN/2)));
+    ringbuf_push(&adc_ringbuf[6 + ADDRESS * 8], (float)adc[6] * (1/((float)DMA_BUF_LEN/2)));
+    ringbuf_push(&adc_ringbuf[7 + ADDRESS * 8], (float)adc[7] * (1/((float)DMA_BUF_LEN/2)));
 
     if (htim->Instance->CNT < 1000)
     {
