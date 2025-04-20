@@ -55,7 +55,7 @@
 #define rgb_start() HAL_TIM_PWM_Start_DMA(&htim3, TIM_CHANNEL_2, (uint32_t *)g_rgb_buffer, RGB_BUFFER_LENGTH);
 #define rgb_stop() HAL_TIM_PWM_Stop_DMA(&htim3, TIM_CHANNEL_2);
 
-#define DMA_BUF_LEN             20
+#define DMA_BUF_LEN             8
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
